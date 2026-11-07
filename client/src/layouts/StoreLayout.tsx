@@ -5,6 +5,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate, useSearchParams } from
 import { Logo } from "../components/Logo";
 import { useAuth } from "../context/AuthContext";
 import { useCart, useStore } from "../hooks/useShop";
+import { Snowfall } from "../components/SeasonDecor";
 import { useSeason } from "../lib/seasons";
 import { DEMO_MODE } from "../services/api";
 
@@ -307,6 +308,7 @@ export function StoreLayout() {
   }, [season.id]);
   return (
     <div className="relative flex min-h-dvh flex-col">
+      {season.id === "NAVIDAD" && <Snowfall />}
 
       <a href="#contenido" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">Saltar al contenido</a>
       <DemoNotice />

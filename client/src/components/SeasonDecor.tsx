@@ -38,3 +38,33 @@ export function SeasonDecor({ id }: { id: SeasonId }) {
     </div>
   );
 }
+
+/** Copos de nieve que caen por toda la página (temporada de Navidad). Decorativos: no reciben clics. */
+export function Snowfall({ count = 46 }: { count?: number }) {
+  const flakes = useMemo(() => {
+    let seed = 29;
+    const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    return Array.from({ length: count }, () => ({
+      left: `${rnd() * 100}%`,
+      size: 9 + rnd() * 16,
+      duration: `${11 + rnd() * 14}s`,
+      delay: `${-rnd() * 25}s`,
+      deriva: `${(rnd() - 0.5) * 160}px`,
+      giro: `${(rnd() > 0.5 ? 1 : -1) * (120 + rnd() * 240)}deg`,
+      opacity: 0.55 + rnd() * 0.4,
+    }));
+  }, [count]);
+  return (
+    <div className="nieve" aria-hidden="true">
+      {flakes.map((f, i) => (
+        <svg key={i} viewBox="0 0 24 24" width={f.size} height={f.size}
+          style={{ left: f.left, animationDuration: f.duration, animationDelay: f.delay, opacity: f.opacity, ["--deriva" as string]: f.deriva, ["--giro" as string]: f.giro }}>
+          <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none">
+            <path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7" />
+            <path d="M9.5 3.8 12 6l2.5-2.2M9.5 20.2 12 18l2.5 2.2M3.6 10.4l3.2-.9-.8-3.2M20.4 13.6l-3.2.9.8 3.2M3.6 13.6l3.2.9-.8 3.2M20.4 10.4l-3.2-.9.8-3.2" />
+          </g>
+        </svg>
+      ))}
+    </div>
+  );
+}
