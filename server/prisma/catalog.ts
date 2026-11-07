@@ -1,9 +1,9 @@
 /**
  * Catálogo de DEMOSTRACIÓN de Mafer: velas artesanales.
  * Recuerdos para eventos (bautizo, baby shower, bodas, XV años), velas de temporada
- * (Navidad, Día de muertos y Amor y amistad), aromáticas y velas con forma de postre.
- * Nombres, descripciones, precios (MXN) y existencias son EJEMPLOS. Las imágenes son ilustrativas
- * (ilustraciones en client/public/productos/velas y fotos de referencia en client/public/productos):
+ * (Navidad, Día de muertos y Amor y amistad, que incluye las velas con forma de postre) y aromáticas.
+ * Nombres, descripciones, precios (MXN) y existencias son EJEMPLOS. Las imágenes son fotos de
+ * referencia recortadas sin fondo (client/public/productos/velas y client/public/productos):
  * reemplázalas por fotos propias desde el panel /admin antes de vender.
  */
 import type { InventoryMode, OptionType } from "@prisma/client";
@@ -28,27 +28,25 @@ export type CatalogProduct = {
   image?: string;
 };
 
-const ilustracion = (slug: string) => `/productos/velas/${slug}.svg`;
 /** Fotos de referencia recortadas (sin fondo). */
 const foto = (slug: string) => `/productos/velas/${slug}.webp`;
 
 /** Las de temporada usan el mismo slug que la temporada en el sitio (ver client/src/lib/seasons.ts). */
 export const categories = [
   { slug: "navidad", name: "Navidad", description: "Pino, ponche y jengibre para regalar y decorar en diciembre.", sortOrder: 1, imageUrl: foto("pino-nevado") },
-  { slug: "dia-de-muertos", name: "Día de muertos", description: "Cempasúchil, copal y pan de muerto para tu ofrenda.", sortOrder: 2, imageUrl: ilustracion("cempasuchil") },
-  { slug: "amor-y-amistad", name: "Amor y amistad", description: "Corazones y aromas dulces para el 14 de febrero.", sortOrder: 3, imageUrl: foto("frasco-te-quiero") },
+  { slug: "dia-de-muertos", name: "Día de muertos", description: "Calaveritas, cempasúchil y pan de muerto para tu ofrenda.", sortOrder: 2, imageUrl: foto("calaverita-de-azucar") },
+  { slug: "amor-y-amistad", name: "Amor y amistad", description: "Corazones, flores y velas con forma de postre para regalar.", sortOrder: 3, imageUrl: foto("frasco-te-quiero") },
   { slug: "bautizo", name: "Bautizo", description: "Velas de ceremonia y recuerdos para tus invitados.", sortOrder: 5, imageUrl: foto("frasco-bendicion") },
   { slug: "baby-shower", name: "Baby shower", description: "Recuerdos tiernos en rosa, azul o neutro.", sortOrder: 6, imageUrl: foto("frasco-oh-baby") },
   { slug: "bodas", name: "Bodas", description: "Vela de unidad y recuerdos con sus iniciales.", sortOrder: 7, imageUrl: foto("ramo-de-tulipanes") },
   { slug: "xv-y-cumpleanos", name: "XV años y cumpleaños", description: "Recuerdos en los colores de tu fiesta.", sortOrder: 8, imageUrl: foto("recuerdo-xv-anos") },
-  { slug: "aromaticas", name: "Aromáticas", description: "Para todo el año: rosa velvet, flores en gel, matcha y lavanda.", sortOrder: 9, imageUrl: foto("velvet-cocoa") },
-  { slug: "velas", name: "Velas postre", description: "Velas con forma de postre, hechas a mano. No son comestibles.", sortOrder: 10, imageUrl: "/productos/vela-pastelito-fresas.webp" },
+  { slug: "aromaticas", name: "Aromáticas", description: "Para todo el año: rosa velvet, flores en gel, matcha y cereza.", sortOrder: 9, imageUrl: foto("velvet-cocoa") },
 ];
 
 /** Categorías que ya no se usan (postres y demostraciones anteriores): se ocultan y sus productos se archivan. */
 export const retiredCategories = [
   "pasteles", "pasteles-personalizados", "cupcakes", "donas", "galletas", "pan-dulce", "postres-especiales",
-  "cajas-de-regalo", "paquetes-para-eventos", "promociones", "halloween",
+  "cajas-de-regalo", "paquetes-para-eventos", "promociones", "halloween", "velas",
 ];
 
 // ───────── Opciones reutilizables ─────────
@@ -113,25 +111,45 @@ export const products: CatalogProduct[] = [
     options: [tarjeta] },
 
   // ───── Día de muertos ─────
-  { slug: "cempasuchil", name: "Vela cempasúchil", category: "dia-de-muertos", featured: true, price: 200, mode: "TRACKED", stock: 14, prep: 0, image: ilustracion("cempasuchil"),
-    short: "Flor de cempasúchil y copal.",
-    description: "Vela en frasco color cempasúchil con aroma floral y un toque de copal, para iluminar tu ofrenda.",
+  { slug: "calaverita-de-azucar", name: "Calaverita de azúcar", category: "dia-de-muertos", featured: true, price: 240, mode: "TRACKED", stock: 12, prep: 0, image: foto("calaverita-de-azucar"),
+    short: "Calavera pintada con corona de cempasúchil.",
+    description: "Vela con forma de calaverita de azúcar pintada a mano, con corona de flor de cempasúchil de cera. Aroma a vainilla y canela.",
     options: regalo },
-  { slug: "calaverita-de-azucar", name: "Calaverita de azúcar", category: "dia-de-muertos", price: 190, mode: "TRACKED", stock: 12, prep: 0, image: ilustracion("calaverita-de-azucar"),
-    short: "Pilar morado con calaverita.",
-    description: "Vela de pilar morada con calaverita de azúcar pintada a mano y aroma a vainilla y canela.",
+  { slug: "calavera-con-cempasuchil", name: "Calavera con cempasúchil", category: "dia-de-muertos", featured: true, price: 260, mode: "TRACKED", stock: 10, prep: 0, image: foto("calavera-con-cempasuchil"),
+    short: "Calavera blanca con corona de flores.",
+    description: "Vela con forma de calavera marfil coronada con flores de cempasúchil y una rosa de cera.",
     options: regalo },
-  { slug: "pan-de-muerto", name: "Pan de muerto", category: "dia-de-muertos", price: 180, mode: "TRACKED", stock: 12, prep: 0, image: ilustracion("pan-de-muerto"),
-    short: "Azahar, mantequilla y azúcar.",
-    description: "Vela en frasco con el aroma del pan de muerto recién horneado: azahar, mantequilla y azúcar.",
+  { slug: "calavera-rosa", name: "Calavera con peonía rosa", category: "dia-de-muertos", price: 260, mode: "TRACKED", stock: 8, prep: 0, image: foto("calavera-rosa"),
+    short: "Calavera con peonía y pedrería.",
+    description: "Vela con forma de calavera con peonía rosa de cera y pedrería en la frente.",
     options: regalo },
-  { slug: "copal-y-mirra", name: "Copal y mirra", category: "dia-de-muertos", featured: true, price: 220, mode: "TRACKED", stock: 12, prep: 0, image: ilustracion("copal-y-mirra"),
-    short: "El aroma de la ofrenda.",
-    description: "Vela en frasco morado con aroma a copal y mirra, para acompañar la ofrenda y aromatizar tu casa en noviembre.",
+  { slug: "calaveras-blanca-y-negra", name: "Par de calaveras", category: "dia-de-muertos", price: 280, mode: "TRACKED", stock: 10, prep: 0, image: foto("calaveras-blanca-y-negra"),
+    short: "Una negra y una marfil.",
+    description: "Par de velas con forma de calavera, una negra y una marfil, para el altar o la repisa.",
     options: regalo },
-  { slug: "veladoras-de-ofrenda", name: "Veladoras de ofrenda (6 piezas)", category: "dia-de-muertos", featured: true, price: 260, mode: "TRACKED", stock: 20, prep: 0, image: ilustracion("veladoras-de-ofrenda"),
-    short: "Seis veladoras en colores de cempasúchil.",
-    description: "Paquete de seis veladoras en frasco (naranja, magenta y morado) con flor de cempasúchil. Duración aproximada: 12 horas cada una.",
+  { slug: "cempasuchil", name: "Flores de cempasúchil", category: "dia-de-muertos", featured: true, price: 320, mode: "TRACKED", stock: 8, prep: 0, image: foto("cempasuchil"),
+    short: "Ramito de velas de cempasúchil.",
+    description: "Velas con forma de flor de cempasúchil en tonos naranja y rojo, para iluminar tu ofrenda.",
+    options: regalo },
+  { slug: "pan-de-muerto", name: "Pan de muerto", category: "dia-de-muertos", price: 180, mode: "TRACKED", stock: 15, prep: 0, image: foto("pan-de-muerto"),
+    short: "Vela con forma de pan de muerto.",
+    description: "Vela con forma de pan de muerto con «azúcar», aroma a azahar y mantequilla.",
+    options: regalo },
+  { slug: "veladora-catrina", name: "Veladora catrina", category: "dia-de-muertos", price: 190, mode: "TRACKED", stock: 15, prep: 0, image: foto("veladora-catrina"),
+    short: "Vaso con etiqueta de catrina.",
+    description: "Veladora en vaso con flores de cempasúchil de cera y etiqueta de catrina de Día de muertos.",
+    options: regalo },
+  { slug: "veladoras-de-ofrenda", name: "Veladoras con nombre", category: "dia-de-muertos", featured: true, price: 150, mode: "MADE_TO_ORDER", prep: 72, image: foto("veladoras-de-ofrenda"),
+    short: "Con el nombre de tu ser querido.",
+    description: "Veladora en vaso con papel picado y el nombre de tu ser querido, coronada con flor de cera. Se elabora sobre pedido.",
+    options: [{ name: "Nombre para la veladora", type: "TEXT", isRequired: true, maxLength: 30 }, { name: "Color del papel picado", type: "SINGLE", isRequired: true, values: [["Rosa mexicano", 0], ["Morado", 0], ["Naranja", 0], ["Azul", 0]] }] },
+  { slug: "mascotas-de-ofrenda", name: "Mascotas de ofrenda", category: "dia-de-muertos", price: 280, mode: "MADE_TO_ORDER", prep: 72, image: foto("mascotas-de-ofrenda"),
+    short: "Gatito y perrito esqueleto.",
+    description: "Par de velas con forma de gatito y perrito esqueleto, para recordar a tus mascotas en la ofrenda.",
+    options: [tarjeta] },
+  { slug: "perrito-alebrije", name: "Perrito alebrije", category: "dia-de-muertos", price: 290, mode: "MADE_TO_ORDER", prep: 72, image: foto("perrito-alebrije"),
+    short: "Perrito pintado a mano con flores.",
+    description: "Vela con forma de perrito decorado como alebrije, con flores y corazón pintados a mano.",
     options: [tarjeta] },
 
   // ───── Bautizo ─────
@@ -205,10 +223,6 @@ export const products: CatalogProduct[] = [
     short: "Flores naturales suspendidas.",
     description: "Vela de gel transparente con flores naturales rosas y blancas suspendidas. Aroma suave a flores blancas.",
     options: regalo },
-  { slug: "lavanda", name: "Lavanda", category: "aromaticas", price: 160, mode: "TRACKED", stock: 20, prep: 0, image: ilustracion("lavanda"),
-    short: "Lavanda fresca y té blanco.",
-    description: "Vela en frasco lila con aroma a lavanda fresca y té blanco. Relajante para la noche.",
-    options: regalo },
   { slug: "coco-y-vainilla", name: "Cereza y vainilla", category: "aromaticas", price: 160, mode: "TRACKED", stock: 18, prep: 0, image: foto("coco-y-vainilla"),
     short: "Capas de crema y cerezas.",
     description: "Vela en vaso con capas de crema, chocolate y cerezas de cera. Aroma a cereza y vainilla.",
@@ -218,24 +232,24 @@ export const products: CatalogProduct[] = [
     description: "Vela en vaso con capas verde y crema que imitan un matcha latte con hielo. Aroma a té verde y vainilla.",
     options: regalo },
 
-  // ───── Velas postre (fotos de referencia) ─────
-  { slug: "vela-pastelito-fresas", name: "Vela pastelito de fresas", category: "velas", featured: true, price: 320, mode: "TRACKED", stock: 8, prep: 0,
+  // ───── Velas postre (en Amor y amistad) ─────
+  { slug: "vela-pastelito-fresas", name: "Vela pastelito de fresas", category: "amor-y-amistad", featured: true, price: 320, mode: "TRACKED", stock: 8, prep: 0,
     short: "Vela de cera de soya con forma de shortcake de fresa.",
     description: "Vela artesanal de cera de soya con forma de pastelito de fresas con crema y bola de helado. Decorativa y aromática. No es comestible.",
     options: vela },
-  { slug: "vela-cupcake-chocolate", name: "Vela cupcake de chocolate", category: "velas", featured: true, price: 260, mode: "TRACKED", stock: 10, prep: 0,
+  { slug: "vela-cupcake-chocolate", name: "Vela cupcake de chocolate", category: "amor-y-amistad", featured: true, price: 260, mode: "TRACKED", stock: 10, prep: 0,
     short: "Cupcake de cera con chocolate y tableta.",
     description: "Vela con forma de cupcake de vainilla bañado en chocolate, con trocitos y tableta de chocolate. No es comestible.",
     options: vela },
-  { slug: "vela-cheesecake-mora", name: "Vela cheesecake de mora", category: "velas", price: 280, mode: "TRACKED", stock: 6, prep: 0,
+  { slug: "vela-cheesecake-mora", name: "Vela cheesecake de mora", category: "amor-y-amistad", price: 280, mode: "TRACKED", stock: 6, prep: 0,
     short: "Mini cheesecake de cera con moras.",
     description: "Vela con forma de mini cheesecake con cubierta de mora y moras azules. No es comestible.",
     options: vela },
-  { slug: "vela-pastel-rosa-galleta", name: "Vela pastel rosa con galleta", category: "velas", price: 290, mode: "TRACKED", stock: 7, prep: 0,
+  { slug: "vela-pastel-rosa-galleta", name: "Vela pastel rosa con galleta", category: "amor-y-amistad", price: 290, mode: "TRACKED", stock: 7, prep: 0,
     short: "Pastelito rosa con glaseado, galleta y fresa.",
     description: "Vela con forma de pastelito rosa con glaseado blanco escurrido, galleta y fresa. No es comestible.",
     options: vela },
-  { slug: "vela-vaso-fresas-crema", name: "Vela vaso de fresas con crema", category: "velas", price: 340, mode: "TRACKED", stock: 5, prep: 0,
+  { slug: "vela-vaso-fresas-crema", name: "Vela vaso de fresas con crema", category: "amor-y-amistad", price: 340, mode: "TRACKED", stock: 5, prep: 0,
     short: "Vaso de vidrio con fresas, crema y galletas de cera.",
     description: "Vela en vaso de vidrio reutilizable con capas de fresa y crema, decorada con fresas y galletitas. No es comestible.",
     options: vela },
@@ -243,19 +257,19 @@ export const products: CatalogProduct[] = [
     short: "Dos velas: corazón con moño y pastelito con fresas.",
     description: "Set de dos velas estilo vintage: un corazón rosa con moño y un pastelito blanco con fresas. Precio especial por tiempo limitado. No son comestibles.",
     options: vela },
-  { slug: "velas-croissant-frambuesa", name: "Set de 4 velas croissant", category: "velas", featured: true, price: 380, mode: "TRACKED", stock: 6, prep: 0,
+  { slug: "velas-croissant-frambuesa", name: "Set de 4 velas croissant", category: "amor-y-amistad", featured: true, price: 380, mode: "TRACKED", stock: 6, prep: 0,
     short: "Cuatro croissants de cera con crema y frambuesas.",
     description: "Set de cuatro velas con forma de croissant con crema y frambuesas. Lindas para centros de mesa. No son comestibles.",
     options: vela },
-  { slug: "velas-copa-helado", name: "Vela copa de helado", category: "velas", price: 220, mode: "TRACKED", stock: 12, prep: 0,
+  { slug: "velas-copa-helado", name: "Vela copa de helado", category: "amor-y-amistad", price: 220, mode: "TRACKED", stock: 12, prep: 0,
     short: "Bola de helado de cera en copa de vidrio.",
     description: "Vela con forma de helado en copa de vidrio, con cereza. Disponible en rosa, vainilla o azul. No es comestible.",
     options: [{ name: "Color", type: "SINGLE", isRequired: true, values: [["Rosa", 0], ["Vainilla", 0], ["Azul", 0]] }, ...vela] },
-  { slug: "velas-cupcake-helado", name: "Vela cupcake helado", category: "velas", price: 190, mode: "TRACKED", stock: 15, prep: 0,
+  { slug: "velas-cupcake-helado", name: "Vela cupcake helado", category: "amor-y-amistad", price: 190, mode: "TRACKED", stock: 15, prep: 0,
     short: "Cupcake de cera en colores pastel.",
     description: "Vela con forma de cupcake con bola de helado en colores pastel y frutitas. No es comestible.",
     options: [{ name: "Color", type: "SINGLE", isRequired: true, values: [["Rosa", 0], ["Amarillo", 0], ["Verde menta", 0], ["Azul", 0]] }, ...vela] },
-  { slug: "velas-gelatina-rosa", name: "Set de velas gelatina rosa", category: "velas", price: 350, mode: "TRACKED", stock: 2, low: 3, prep: 0,
+  { slug: "velas-gelatina-rosa", name: "Set de velas gelatina rosa", category: "amor-y-amistad", price: 350, mode: "TRACKED", stock: 2, low: 3, prep: 0,
     short: "Tres gelatinas de cera y vela de burbujas corazón.",
     description: "Set de tres velas con forma de gelatina en capas rosa y crema, más una vela de burbujas de corazones. No son comestibles.",
     options: vela },

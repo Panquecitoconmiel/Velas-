@@ -2,7 +2,7 @@
 
 > «Velas artesanales para cada momento»
 
-Tienda web de Mafer: velas de temporada (Navidad, Amor y amistad, Día de muertos, Halloween), recuerdos personalizados para eventos (bautizo, baby shower, bodas, XV años), velas aromáticas y velas postre. Incluye cuentas de cliente, carrito, pedidos con fecha y horario, pago con Stripe Checkout o pedido/cotización por WhatsApp, y panel administrativo.
+Tienda web de Mafer: velas de temporada (Navidad, Día de muertos y Amor y amistad, que incluye las velas con forma de postre), recuerdos personalizados para eventos (bautizo, baby shower, bodas, XV años) y velas aromáticas. Incluye cuentas de cliente, carrito, pedidos con fecha y horario, pago con Stripe Checkout o pedido/cotización por WhatsApp, y panel administrativo.
 
 ### Temporadas
 
@@ -13,7 +13,7 @@ El sitio cambia de colores, portada y colección destacada según la temporada. 
 - **Día de muertos**: morado, cempasúchil y magenta, con pétalos.
 - **Amor y amistad**: vino, rojo y rosa, con corazones.
 
-Los colores de cada temporada están en `client/src/styles/index.css` y los textos en `client/src/lib/seasons.ts`. Las ilustraciones de las velas de demostración se generan con `node scripts/ilustraciones-velas.mjs`; se reemplazan por fotos reales desde el panel.
+Los colores de cada temporada están en `client/src/styles/index.css` y los textos en `client/src/lib/seasons.ts`. Las fotos de las velas de demostración (recortadas sin fondo) están en `client/public/productos/velas/` y se reemplazan desde el panel.
 
 **Si ya tenías la base de datos de la versión de postres:** ejecuta `pnpm db:deploy` (agrega la columna de temporada) y luego `pnpm db:seed`, que crea el catálogo de velas y archiva los postres sin borrar pedidos.
 

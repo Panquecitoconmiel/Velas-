@@ -42,9 +42,9 @@ Abre http://localhost:4173/
 
 ## Catálogo actual
 
-42 velas de ejemplo: recuerdos de bautizo, baby shower, bodas, XV años y cumpleaños; colecciones de Navidad, Día de muertos y Amor y amistad; aromáticas y velas postre. Nombres, precios (MXN) y existencias son de ejemplo.
+Velas de ejemplo, todas con fotos de referencia que proporcionó la clienta, recortadas sin fondo: recuerdos de bautizo, baby shower, bodas, XV años y cumpleaños; colecciones de Navidad, Día de muertos y Amor y amistad (que incluye las velas con forma de postre), y aromáticas. Nombres, precios (MXN) y existencias son de ejemplo.
 
-Las fotos de las velas están recortadas sin fondo en `client/public/productos/velas/*.webp` (fotos de referencia proporcionadas por la clienta) y las de Día de muertos y lavanda son ilustraciones (`*.svg`, generadas con `node scripts/ilustraciones-velas.mjs`). Son **imágenes ilustrativas**: antes de vender, reemplázalas por fotos propias desde el panel.
+Las fotos están en `client/public/productos/velas/` y `client/public/productos/`. Son **imágenes de referencia**: antes de vender, reemplázalas por fotos propias desde el panel.
 
 En el catálogo las velas se muestran sin recuadro y brillan, como encendidas, al pasar el cursor o tocarlas.
 

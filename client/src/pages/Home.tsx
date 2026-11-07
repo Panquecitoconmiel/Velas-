@@ -160,8 +160,8 @@ export default function Home() {
       </section>
 
       <ProductSection query={{ featured: "true", pageSize: 8, sort: "popular" }} title="Favoritas de nuestras clientas" link={{ to: "/catalogo", label: "Ver catálogo" }} />
-      <ProductSection query={{ category: "aromaticas", pageSize: 4, sort: "popular" }} title="Aromáticas para todo el año" intro="Ámbar, lavanda, coco y eucalipto en frascos de vidrio reutilizables." link={{ to: "/categoria/aromaticas", label: "Ver aromáticas" }} hideIfEmpty band />
-      <ProductSection query={{ category: "velas", pageSize: 4, sort: "popular" }} title="Velas postre" intro="Parecen postre, pero son velas hechas a mano. No son comestibles." link={{ to: "/categoria/velas", label: "Ver todas" }} hideIfEmpty />
+      <ProductSection query={{ category: "aromaticas", pageSize: 4, sort: "popular" }} title="Aromáticas para todo el año" intro="Rosa velvet, flores en gel, matcha y cereza en vasos de vidrio reutilizables." link={{ to: "/categoria/aromaticas", label: "Ver aromáticas" }} hideIfEmpty band />
+      {season.id !== "AMOR" && <ProductSection query={{ category: "amor-y-amistad", pageSize: 4, sort: "popular" }} title="Amor y amistad" intro="Corazones, flores y velas que parecen postre (no son comestibles)." link={{ to: "/categoria/amor-y-amistad", label: "Ver todas" }} hideIfEmpty />}
 
       {seasonal.length > 0 && (
         <Section title="Otras temporadas" intro="Aparta con tiempo las velas de tu próxima celebración.">

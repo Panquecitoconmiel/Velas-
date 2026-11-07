@@ -250,7 +250,6 @@ function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link className={link} to="/catalogo">Catálogo completo</Link></li>
               <li><Link className={link} to="/categoria/aromaticas">Velas aromáticas</Link></li>
-              <li><Link className={link} to="/categoria/velas">Velas postre</Link></li>
               <li><Link className={link} to="/promociones">Promociones</Link></li>
               <li><Link className={link} to="/cuenta/pedidos">Mis pedidos</Link></li>
             </ul>
