@@ -28,7 +28,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     title: "Velas que guardan tus momentos",
     subtitle: "Recuerdos para bautizos, baby showers, bodas y XV años, y velas aromáticas hechas a mano en la Ciudad de México.",
     cta: "Ver recuerdos para eventos",
-    hero: "/productos/velas/velvet-cocoa.svg",
+    hero: "/productos/velas/velvet-cocoa.webp",
     swatches: ["#56131B", "#71142A", "#A77F60", "#E3C8AE"],
   },
   NAVIDAD: {
@@ -39,7 +39,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     title: "Esta Navidad, enciende algo especial",
     subtitle: "Pino, ponche y jengibre hechos vela: para regalar, intercambiar y vestir tu mesa de diciembre.",
     cta: "Ver colección de Navidad",
-    hero: "/productos/velas/esfera-roja.svg",
+    hero: "/productos/velas/pino-nevado.webp",
     swatches: ["#7D2826", "#EFE9D7", "#898861", "#343723"],
   },
   MUERTOS: {
@@ -61,7 +61,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     title: "Para quien hace brillar tus días",
     subtitle: "Corazones, rosas y vainilla: detalles hechos a mano para el 14 de febrero.",
     cta: "Ver colección de amor y amistad",
-    hero: "/productos/velas/frasco-te-quiero.svg",
+    hero: "/productos/velas/frasco-te-quiero.webp",
     swatches: ["#7A0F26", "#C21D3C", "#F39AAC", "#FFDFE5"],
   },
 };

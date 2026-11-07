@@ -174,3 +174,23 @@ html[data-season="AMOR"] {
 @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .vela-flota { animation: flotar 6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .halo-vela, .vela-flota { animation: none; } }
+
+/* Velas del catálogo: sin recuadro; al pasar el cursor o tocarlas, brillan como encendidas. */
+.vela-brillo .vela-halo {
+  position: absolute; inset: 6% 10% 14%; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, rgb(255 205 120 / 0.55), rgb(255 170 80 / 0.18) 45%, transparent 70%);
+  opacity: 0; transform: scale(0.85); transition: opacity 0.45s ease, transform 0.6s ease; pointer-events: none;
+}
+.vela-brillo .vela-img {
+  filter: drop-shadow(0 14px 16px rgb(0 0 0 / 0.14));
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.5s ease;
+}
+.group:hover .vela-brillo .vela-halo, .group:focus-within .vela-brillo .vela-halo, .group:active .vela-brillo .vela-halo, .vela-brillo.group:hover .vela-halo, .vela-brillo.group:active .vela-halo { opacity: 1; transform: scale(1.05); }
+.group:hover .vela-brillo .vela-img, .group:focus-within .vela-brillo .vela-img, .group:active .vela-brillo .vela-img, .vela-brillo.group:hover .vela-img, .vela-brillo.group:active .vela-img {
+  transform: translateY(-6px) scale(1.04);
+  filter: drop-shadow(0 0 18px rgb(255 196 110 / 0.75)) drop-shadow(0 18px 18px rgb(0 0 0 / 0.16)) brightness(1.06) saturate(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .vela-brillo .vela-img, .vela-brillo .vela-halo { transition: none; }
+  .group:hover .vela-brillo .vela-img { transform: none; }
+}

@@ -9,19 +9,20 @@ import { ProductImage } from "./ui";
 export const TONOS = ["bg-rosa-100", "bg-celeste", "bg-vainilla", "bg-durazno-100"];
 
 /** Tarjeta de producto. Si no requiere elegir opciones, permite agregar directo al carrito. */
-export function ProductCard({ product, tone = 0 }: { product: Product; tone?: number }) {
+export function ProductCard({ product }: { product: Product; tone?: number }) {
   const { add } = useCartActions();
   const needsChoice = product.variants.length > 0 || product.options.some((o) => o.isRequired);
   const url = `/producto/${product.slug}`;
   const onSale = product.salePriceCents != null;
 
   return (
-    <article className="group flex flex-col">
-      <Link to={url} className={`relative block aspect-square overflow-hidden rounded-[1.4rem] ${TONOS[tone % TONOS.length]}`} tabIndex={-1} aria-hidden="true">
+    <article className="group flex flex-col" onTouchStart={() => undefined}>
+      <Link to={url} className="vela-brillo relative block aspect-square" tabIndex={-1} aria-hidden="true">
+        <span className="vela-halo" aria-hidden="true" />
         <ProductImage
           src={product.images[0]?.url}
           alt=""
-          className="size-full p-[9%] drop-shadow-[0_12px_14px_rgb(122_77_58/0.16)] transition duration-500 ease-out group-hover:scale-[1.04]"
+          className="vela-img relative size-full p-[4%]"
         />
         {(onSale || !product.inStock || product.lowStock) && (
           <span
