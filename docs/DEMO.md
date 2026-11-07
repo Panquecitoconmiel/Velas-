@@ -1,11 +1,13 @@
 # Demostración de diseño (modo vitrina)
 
-Versión de Mafer para **mostrar el diseño a clientes**. Funciona sin servidor ni base de datos y se publica gratis en **Cloudflare Pages**.
+Versión de la tienda de velas de Mafer para **mostrar el diseño a clientes**. Funciona sin servidor ni base de datos y se publica gratis en **Cloudflare Pages**.
 
 ## Qué se puede hacer
 
 - Recorrer portada, catálogo, filtros, búsqueda y detalle de productos.
-- Personalizar pasteles y ver el precio calculado.
+- Personalizar recuerdos para eventos (paquete, listón, etiqueta) y ver el precio calculado.
+- Cotizar o pedir por WhatsApp desde el producto o el carrito.
+- Ver el sitio en cada temporada con el botón «Temporada» (abajo a la izquierda).
 - Agregar al carrito, crear una cuenta de prueba y completar el checkout. Se crea un **pedido de prueba**; no se cobra nada.
 - Ver «Mi cuenta»: pedidos, direcciones y favoritos.
 - Entrar al **panel administrativo** en modo solo lectura con:
@@ -18,7 +20,7 @@ Todo lo que hace cada visitante (carrito, cuenta, pedidos) se guarda **solo en s
 
 1. Entra a https://dash.cloudflare.com (crea tu cuenta gratis si no tienes).
 2. Menú **Workers & Pages** → **Create** → pestaña **Pages** → **Connect to Git**.
-3. Conecta tu cuenta de GitHub y elige el repositorio **Mafer-Bake**.
+3. Conecta tu cuenta de GitHub y elige el repositorio **Velas-** (si no aparece, usa «Configure GitHub App» y dale acceso a ese repositorio).
 4. Configuración de compilación:
    - **Framework preset:** None
    - **Build command:** `pnpm --filter ./client build:demo`
@@ -40,9 +42,9 @@ Abre http://localhost:4173/
 
 ## Catálogo actual
 
-50 productos de ejemplo en 8 categorías: pasteles, pasteles personalizados, cupcakes, donas, galletas, pan dulce, postres especiales y **velas de postre**. Nombres, precios (MXN) y existencias son de ejemplo.
+39 velas de ejemplo: recuerdos de bautizo, baby shower, bodas, XV años y cumpleaños; colecciones de Navidad, Amor y amistad, Día de muertos y Halloween; aromáticas y velas postre. Nombres, precios (MXN) y existencias son de ejemplo.
 
-Las fotos están en `client/public/productos/` (WEBP de 800 × 800). Son **imágenes ilustrativas de referencia**: el sitio lo indica en el aviso superior. Antes de vender, reemplázalas por fotos propias de Mafer con el mismo nombre de archivo, o súbelas desde el panel.
+Las ilustraciones están en `client/public/productos/velas/` (se generan con `node scripts/ilustraciones-velas.mjs`) y las fotos de velas postre en `client/public/productos/`. Son **imágenes ilustrativas**: antes de vender, reemplázalas por fotos propias desde el panel.
 
 ## Cambiar los productos de la demostración
 
