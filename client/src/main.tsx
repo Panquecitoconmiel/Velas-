@@ -6,7 +6,7 @@ import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
 import { ApiError } from "./services/api";
-import "@fontsource-variable/fredoka";
+import "@fontsource-variable/fraunces";
 import "@fontsource-variable/nunito";
 import "./styles/index.css";
 

@@ -3,36 +3,42 @@
 /* ───────── Tokens de marca Mafer ───────── */
 @theme {
   /* Tipografía redondeada y amigable para títulos; Nunito para lectura */
-  --font-display: "Fredoka Variable", "Fredoka", ui-rounded, sans-serif;
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
   --font-sans: "Nunito Variable", "Nunito", ui-sans-serif, system-ui, sans-serif;
 
-  /* Paleta base: monocromática nude (temporada «sin temporada»).
+  /* Paleta base «Velvet cocoa»: #56131B, #71142A, #A77F60, #E3C8AE.
      Los nombres de los tokens se conservan; cada temporada los redefine abajo. */
-  --color-rosa-50: #faf6f2;
-  --color-rosa-100: #f2e9e1;
-  --color-rosa-200: #e6d6c8;
-  --color-empolvado: #d4bfae;
-  --color-rosa-600: #86644f;
-  --color-rosa-700: #6c4f3e;
+  --color-rosa-50: #fbf4ee;
+  --color-rosa-100: #f3e4d6;
+  --color-rosa-200: #e3c8ae;
+  --color-empolvado: #a77f60;
+  --color-rosa-600: #71142a;
+  --color-rosa-700: #56131b;
 
-  --color-crema-50: #fdfbf8;
-  --color-crema-100: #f8f3ee;
-  --color-crema-200: #efe6dd;
-  --color-crema-300: #e2d5c8;
+  --color-crema-50: #fdf9f5;
+  --color-crema-100: #f8efe6;
+  --color-crema-200: #efdfcf;
+  --color-crema-300: #e3c8ae;
 
-  --color-cafe-400: #a8917f;
-  --color-cafe-500: #7f6455;
-  --color-cafe-700: #5f463a;
-  --color-cafe-900: #43302a;
+  --color-cafe-400: #a77f60;
+  --color-cafe-500: #7a5848;
+  --color-cafe-700: #5a2a2c;
+  --color-cafe-900: #3b0d15;
 
-  --color-celeste: #efe6dd;
-  --color-celeste-300: #e2d5c8;
-  --color-vainilla: #f6efe7;
-  --color-coral: #86644f;
-  --color-durazno: #86644f;
-  --color-durazno-100: #f3e9df;
+  --color-celeste: #f1e0d0;
+  --color-celeste-300: #e3c8ae;
+  --color-vainilla: #f7ece1;
+  --color-coral: #71142a;
+  --color-durazno: #a77f60;
+  --color-durazno-100: #f1e2d4;
   --color-menta: #6d8a5a;
-  --color-dorado: #c9a77c;
+  --color-dorado: #a77f60;
+
+  /* Portada (fondo oscuro de temporada) */
+  --color-noche: #56131b;
+  --color-noche-2: #71142a;
+  --color-noche-texto: #f8ece0;
+  --color-brillo: #e3c8ae;
 
   --color-exito: #3f7d5a;
   --color-aviso: #a86b12;
@@ -56,7 +62,7 @@
     @apply bg-crema-100 font-sans text-cafe-700 antialiased;
     font-optical-sizing: auto;
   }
-  h1, h2, h3, h4 { @apply font-display text-cafe-900; font-weight: 600; letter-spacing: -0.005em; }
+  h1, h2, h3, h4 { @apply font-display text-cafe-900; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "SOFT" 50, "WONK" 0; }
   :focus-visible { outline: 2px solid var(--color-rosa-600); outline-offset: 2px; border-radius: 6px; }
   ::selection { background: var(--color-rosa-200); color: var(--color-cafe-900); }
   @media (prefers-reduced-motion: reduce) {
@@ -99,50 +105,36 @@
 
   .titulo-seccion { @apply font-display text-2xl text-cafe-900 sm:text-3xl; }
   /* Títulos de sección estilo «✶˚ NOVEDADES ˚✶» */
-  .titulo-dulce { @apply font-display text-[1.75rem] leading-tight font-semibold text-cafe-900 sm:text-[2rem]; }
+  .titulo-dulce { @apply font-display text-[2rem] leading-[1.08] font-semibold text-cafe-900 sm:text-[2.6rem]; }
   /* Fondo de rayas azul y vainilla */
   .rayas { background: repeating-linear-gradient(90deg, var(--color-celeste) 0 44px, var(--color-vainilla) 44px 88px); }
   .sobretitulo { @apply text-sm font-semibold text-rosa-600; }
 }
 
 /* ───────── Temporadas ─────────
-   El layout de la tienda pone data-season en <html>. Cada temporada redefine los tokens;
-   en las oscuras (Navidad y Halloween) «white» pasa a ser la superficie de las tarjetas. */
+   El layout de la tienda pone data-season en <html>; cada temporada redefine los tokens. */
 html[data-season="NAVIDAD"] {
-  --color-white: #4a1526;
-  --color-crema-50: #3d1020; --color-crema-100: #34101c; --color-crema-200: #551d31; --color-crema-300: #74304a;
-  --color-rosa-50: #45162a; --color-rosa-100: #561d33; --color-rosa-200: #6e2a42; --color-empolvado: #b98a4e;
-  --color-rosa-600: #e2b45c; --color-rosa-700: #f0c875;
-  --color-cafe-400: #c4a58c; --color-cafe-500: #e6cfb5; --color-cafe-700: #f5e6d1; --color-cafe-900: #fff7ea;
-  --color-celeste: #4f1a2c; --color-celeste-300: #6e2a42; --color-vainilla: #45162a;
-  --color-coral: #e2b45c; --color-durazno: #e2b45c; --color-durazno-100: #4f1a2b; --color-dorado: #e2b45c;
-  --color-exito: #9fdcb4; --color-aviso: #f2c46d; --color-error: #ff9a8f;
-  --shadow-suave: 0 1px 2px rgb(0 0 0 / 0.2), 0 10px 26px -12px rgb(0 0 0 / 0.55);
-  --shadow-elevada: 0 2px 4px rgb(0 0 0 / 0.25), 0 20px 44px -16px rgb(0 0 0 / 0.6);
-  color-scheme: dark;
-}
-html[data-season="HALLOWEEN"] {
-  --color-white: #262130;
-  --color-crema-50: #201c28; --color-crema-100: #1a1720; --color-crema-200: #322a3d; --color-crema-300: #4a3d5a;
-  --color-rosa-50: #2a2433; --color-rosa-100: #352c42; --color-rosa-200: #4a3d5a; --color-empolvado: #8a6bb0;
-  --color-rosa-600: #f08a3c; --color-rosa-700: #ffa45c;
-  --color-cafe-400: #a597b3; --color-cafe-500: #cbc0d6; --color-cafe-700: #e9e1f0; --color-cafe-900: #fff4e6;
-  --color-celeste: #2e2640; --color-celeste-300: #4a3d5a; --color-vainilla: #2a2433;
-  --color-coral: #f08a3c; --color-durazno: #f08a3c; --color-durazno-100: #2e2836; --color-dorado: #f0b45c;
-  --color-exito: #9fdcb4; --color-aviso: #f2c46d; --color-error: #ff9a8f;
-  --shadow-suave: 0 1px 2px rgb(0 0 0 / 0.25), 0 10px 26px -12px rgb(0 0 0 / 0.6);
-  --shadow-elevada: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 44px -16px rgb(0 0 0 / 0.7);
-  color-scheme: dark;
+  /* Coral #7D2826 · Candle #EFE9D7 · Leaf #898861 · Juniper #343723 */
+  --color-crema-50: #f8f5ec; --color-crema-100: #efe9d7; --color-crema-200: #e2dbc4; --color-crema-300: #cfc7aa;
+  --color-rosa-50: #f4f0e3; --color-rosa-100: #e6e3cf; --color-rosa-200: #cfcdb0; --color-empolvado: #898861;
+  --color-rosa-600: #7d2826; --color-rosa-700: #5f1c1b;
+  --color-cafe-400: #898861; --color-cafe-500: #5d5f4a; --color-cafe-700: #44473a; --color-cafe-900: #262819;
+  --color-celeste: #e3e2cc; --color-celeste-300: #cfcdb0; --color-vainilla: #f4efe0;
+  --color-coral: #7d2826; --color-durazno: #898861; --color-durazno-100: #e7e4d0; --color-dorado: #898861;
+  --color-noche: #343723; --color-noche-2: #2a2c1c; --color-noche-texto: #efe9d7; --color-brillo: #c9a46a;
+  --shadow-suave: 0 1px 2px rgb(38 40 25 / 0.06), 0 8px 24px -12px rgb(38 40 25 / 0.28);
+  --shadow-elevada: 0 2px 4px rgb(38 40 25 / 0.06), 0 18px 40px -16px rgb(38 40 25 / 0.38);
 }
 html[data-season="MUERTOS"] {
-  --color-crema-50: #fffbf5; --color-crema-100: #fff6ea; --color-crema-200: #fde6c8; --color-crema-300: #f4cc98;
-  --color-rosa-50: #fff1e0; --color-rosa-100: #ffe3bf; --color-rosa-200: #ffcf8f; --color-empolvado: #f4a742;
-  --color-rosa-600: #b8430c; --color-rosa-700: #95340a;
-  --color-cafe-400: #a58ab8; --color-cafe-500: #6f4f88; --color-cafe-700: #55356c; --color-cafe-900: #3d2252;
+  --color-crema-50: #fffbf5; --color-crema-100: #fff4e6; --color-crema-200: #fde4c4; --color-crema-300: #f4cc98;
+  --color-rosa-50: #fff1e0; --color-rosa-100: #ffe3bf; --color-rosa-200: #ffcf8f; --color-empolvado: #f29e1f;
+  --color-rosa-600: #a83a0b; --color-rosa-700: #862e08;
+  --color-cafe-400: #a58ab8; --color-cafe-500: #6f4f88; --color-cafe-700: #55356c; --color-cafe-900: #2e1a3d;
   --color-celeste: #f3e3f7; --color-celeste-300: #e0c3eb; --color-vainilla: #fff1d6;
-  --color-coral: #c2185b; --color-durazno: #6b3590; --color-durazno-100: #f6e6fb; --color-dorado: #f4a742;
-  --shadow-suave: 0 1px 2px rgb(61 34 82 / 0.06), 0 8px 24px -12px rgb(184 67 12 / 0.3);
-  --shadow-elevada: 0 2px 4px rgb(61 34 82 / 0.06), 0 18px 40px -16px rgb(184 67 12 / 0.4);
+  --color-coral: #c2185b; --color-durazno: #6b3590; --color-durazno-100: #f6e6fb; --color-dorado: #f29e1f;
+  --color-noche: #2e1a3d; --color-noche-2: #45235a; --color-noche-texto: #fff1dc; --color-brillo: #f29e1f;
+  --shadow-suave: 0 1px 2px rgb(46 26 61 / 0.06), 0 8px 24px -12px rgb(168 58 11 / 0.3);
+  --shadow-elevada: 0 2px 4px rgb(46 26 61 / 0.06), 0 18px 40px -16px rgb(168 58 11 / 0.4);
 }
 html[data-season="AMOR"] {
   --color-crema-50: #fffafb; --color-crema-100: #fff5f6; --color-crema-200: #fde3e7; --color-crema-300: #f6c6cf;
@@ -151,23 +143,34 @@ html[data-season="AMOR"] {
   --color-cafe-400: #b98a93; --color-cafe-500: #8a4f5c; --color-cafe-700: #6e3442; --color-cafe-900: #4f1f2b;
   --color-celeste: #ffe9ee; --color-celeste-300: #ffc9d4; --color-vainilla: #fff4f0;
   --color-coral: #c21d3c; --color-durazno: #c21d3c; --color-durazno-100: #ffe4e9; --color-dorado: #e6a5b2;
+  --color-noche: #7a0f26; --color-noche-2: #9f142d; --color-noche-texto: #fff0f2; --color-brillo: #f39aac;
   --shadow-suave: 0 1px 2px rgb(79 31 43 / 0.05), 0 8px 24px -12px rgb(194 29 60 / 0.28);
   --shadow-elevada: 0 2px 4px rgb(79 31 43 / 0.05), 0 18px 40px -16px rgb(194 29 60 / 0.38);
 }
 
-/* Decoración de temporada: partículas que caen detrás del contenido. */
-.temporada-decor { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+/* Decoración de temporada: partículas dentro de la portada. */
+.temporada-decor { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .temporada-decor i {
   position: absolute; top: -40px; display: block; opacity: 0.8;
   animation: caer linear infinite;
 }
 @keyframes caer {
   from { transform: translate3d(0, -40px, 0) rotate(0deg); }
-  to { transform: translate3d(var(--deriva, 30px), 110vh, 0) rotate(var(--giro, 180deg)); }
+  to { transform: translate3d(var(--deriva, 30px), 900px, 0) rotate(var(--giro, 180deg)); }
+}
+/* Chispas que suben (temporada base) */
+.temporada-decor i.sube { top: auto; bottom: -20px; animation-name: subir; }
+@keyframes subir {
+  from { transform: translate3d(0, 0, 0); opacity: 0; }
+  15% { opacity: 0.9; }
+  to { transform: translate3d(var(--deriva, 20px), -700px, 0); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .temporada-decor { display: none; }
 }
 /* La llama de la portada parpadea suavemente. */
-@keyframes brillo { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.06); } }
-.halo-vela { animation: brillo 3.2s ease-in-out infinite; }
+@keyframes brillo { 0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.08); } }
+.halo-vela { animation: brillo 3.6s ease-in-out infinite; }
+@keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.vela-flota { animation: flotar 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .halo-vela, .vela-flota { animation: none; } }

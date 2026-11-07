@@ -90,6 +90,7 @@ admin.post("/coupons", A.createCoupon);
 admin.put("/coupons/:id", A.updateCoupon);
 admin.get("/settings", A.getSettingsAdmin);
 admin.put("/settings", A.saveSettings);
+admin.put("/settings/season", A.saveSeason);
 admin.get("/delivery", A.listSlots);
 admin.post("/delivery/slots", A.createSlot);
 admin.put("/delivery/slots/:id", A.updateSlot);

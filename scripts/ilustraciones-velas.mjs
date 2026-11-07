@@ -115,12 +115,12 @@ const SHAPES = { pilar, frasco, conicas, mini };
 
 /** slug → [forma, opciones, color de cera, sombra de cera] */
 export const VELAS = {
-  // Navidad
-  "pino-nevado": ["pilar", { motivo: "copo", colorMotivo: "#ffffff", banda: "#b8862f" }, "#2f5a43", "#1f3d2d"],
-  "ponche-navideno": ["frasco", { motivo: "estrella", colorMotivo: "#b8862f", tapa: "#b8862f" }, "#a3243b", "#7a1a2c"],
-  "galleta-de-jengibre": ["pilar", { motivo: "galleta", colorMotivo: "#8a5a35", banda: "#a3243b" }, "#f3e6d2", "#d8c3a5"],
-  "esfera-roja": ["pilar", { motivo: "estrella", colorMotivo: "#e2b45c" }, "#a3243b", "#7a1a2c"],
-  "set-navideno-mini": ["mini", { colores: ["#a3243b", "#2f5a43", "#e2b45c"], motivo: "pino", colorMotivo: "#2f5a43", tapa: "#b8862f" }],
+  // Navidad (paleta Coral #7D2826, Candle #EFE9D7, Leaf #898861, Juniper #343723)
+  "pino-nevado": ["pilar", { motivo: "copo", colorMotivo: "#EFE9D7", banda: "#7D2826" }, "#343723", "#23251a"],
+  "ponche-navideno": ["frasco", { motivo: "estrella", colorMotivo: "#7D2826", tapa: "#898861" }, "#7D2826", "#5c1c1b"],
+  "galleta-de-jengibre": ["pilar", { motivo: "galleta", colorMotivo: "#8a5a35", banda: "#7D2826" }, "#EFE9D7", "#d9d0b5"],
+  "esfera-roja": ["pilar", { motivo: "estrella", colorMotivo: "#EFE9D7", banda: "#898861" }, "#7D2826", "#5c1c1b"],
+  "set-navideno-mini": ["mini", { colores: ["#7D2826", "#343723", "#898861"], motivo: "pino", colorMotivo: "#343723", tapa: "#898861" }],
   // Amor y amistad
   "frasco-te-quiero": ["frasco", { motivo: "corazon", colorMotivo: "#c8203f", tapa: "#e6a5b2" }, "#f7c4ce", "#e79aab"],
   "rosas-y-vainilla": ["pilar", { motivo: "corazon", colorMotivo: "#fff1f3", banda: "#f7c4ce" }, "#c8203f", "#9c1530"],
@@ -129,10 +129,8 @@ export const VELAS = {
   "cempasuchil": ["frasco", { motivo: "flor", colorMotivo: "#f29e1f", tapa: "#7b3f9e" }, "#f6b13d", "#d98a17"],
   "calaverita-de-azucar": ["pilar", { motivo: "calavera", colorMotivo: "#ffffff", banda: "#f29e1f" }, "#7b3f9e", "#5b2a6e"],
   "pan-de-muerto": ["frasco", { motivo: "flor", colorMotivo: "#7b3f9e", tapa: "#f29e1f" }, "#e8b97a", "#c9945a"],
-  // Halloween
-  "calabaza-especiada": ["pilar", { motivo: "calabaza", colorMotivo: "#f08a3c", banda: "#3a2a4a" }, "#2b2433", "#18141d"],
-  "noche-de-brujas": ["frasco", { motivo: "luna", colorMotivo: "#f0b45c", etiqueta: "#2b2433", tapa: "#6b4a8a" }, "#3a2a4a", "#241a30"],
-  "fantasma-de-vainilla": ["pilar", { motivo: "fantasma", colorMotivo: "#ffffff", banda: "#f08a3c" }, "#6b4a8a", "#4b3266"],
+  "copal-y-mirra": ["frasco", { motivo: "hoja", colorMotivo: "#6b3590", tapa: "#c2185b" }, "#4a2a5e", "#2e1a3d"],
+  "veladoras-de-ofrenda": ["mini", { colores: ["#f29e1f", "#c2185b", "#6b3590"], motivo: "flor", colorMotivo: "#f29e1f", tapa: "#6b3590" }],
   // Bautizo
   "vela-de-bautizo": ["conicas", { motivo: "cruz", colorMotivo: "#c9a77c", liston: "#c9a77c" }, "#fffaf3", "#e9dfd2"],
   "recuerdo-bautizo-mini": ["mini", { colores: ["#fffaf3", "#f3ece2", "#fffaf3"], motivo: "cruz", colorMotivo: "#c9a77c" }],
@@ -149,6 +147,7 @@ export const VELAS = {
   "recuerdo-xv-anos": ["frasco", { motivo: "estrella", colorMotivo: "#c9a77c", tapa: "#e6a5b2" }, "#f4c6d4", "#e2a2b6"],
   "recuerdo-cumpleanos-mini": ["mini", { colores: ["#f6efc9", "#f4c6d4", "#dceaf6"], motivo: "estrella", colorMotivo: "#c9a77c" }],
   // Aromáticas
+  "velvet-cocoa": ["pilar", { motivo: "flor", colorMotivo: "#71142A", banda: "#A77F60" }, "#f3e6d8", "#E3C8AE"],
   "ambar": ["frasco", { motivo: "hoja", colorMotivo: "#b07a2a" }, "#e9a640", "#c8841f"],
   "lavanda": ["frasco", { motivo: "lavanda", colorMotivo: "#9a7cc9", tapa: "#b9a6d9" }, "#c9b6ea", "#a891d6"],
   "coco-y-vainilla": ["frasco", { motivo: "hoja", colorMotivo: "#c9a77c" }, "#f6efe3", "#e3d6c3"],

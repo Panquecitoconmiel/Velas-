@@ -6,13 +6,14 @@ Tienda web de Mafer: velas de temporada (Navidad, Amor y amistad, Día de muerto
 
 ### Temporadas
 
-El sitio cambia de colores, portada y colección destacada según la temporada, que se elige en **Panel › Configuración › Temporada del sitio**:
+El sitio cambia de colores, portada y colección destacada según la temporada. **Solo la administradora la cambia**, en **Panel › Configuración › Temporada del sitio**; se aplica al momento:
 
-- **Sin temporada**: paleta monocromática nude (crema, arena y café).
-- **Navidad** (vino, dorado y crema, con nieve), **Amor y amistad** (rojo y rosa, con corazones), **Día de muertos** (cempasúchil y morado, con pétalos) y **Halloween** (negro, naranja y morado).
-- **Automática**: Halloween del 1 al 27 de octubre, Día de muertos del 28 de octubre al 2 de noviembre, Navidad del 15 de noviembre al 6 de enero y Amor y amistad del 1 al 14 de febrero; el resto del año, nude.
+- **Velvet cocoa** (todo el año): #56131B, #71142A, #A77F60 y #E3C8AE, con chispas doradas en la portada.
+- **Navidad**: Coral #7D2826, Candle #EFE9D7, Leaf #898861 y Juniper #343723, con nieve.
+- **Día de muertos**: morado, cempasúchil y magenta, con pétalos.
+- **Amor y amistad**: vino, rojo y rosa, con corazones.
 
-Los colores de cada temporada están en `client/src/styles/index.css` y los textos y fechas en `client/src/lib/seasons.ts`. Las ilustraciones de las velas de demostración se generan con `node scripts/ilustraciones-velas.mjs`; se reemplazan por fotos reales desde el panel.
+Los colores de cada temporada están en `client/src/styles/index.css` y los textos en `client/src/lib/seasons.ts`. Las ilustraciones de las velas de demostración se generan con `node scripts/ilustraciones-velas.mjs`; se reemplazan por fotos reales desde el panel.
 
 **Si ya tenías la base de datos de la versión de postres:** ejecuta `pnpm db:deploy` (agrega la columna de temporada) y luego `pnpm db:seed`, que crea el catálogo de velas y archiva los postres sin borrar pedidos.
 

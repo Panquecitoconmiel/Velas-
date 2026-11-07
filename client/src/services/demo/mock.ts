@@ -28,6 +28,8 @@ interface State {
   favorites: Record<string, string[]>;
   orders: Json[];
   orderSeq: number;
+  /** Temporada elegida desde el panel de la demostración. */
+  season?: string;
 }
 const fresh = (): State => ({ users: [], sessionUserId: null, cart: [], addresses: {}, favorites: {}, orders: [], orderSeq: 0 });
 let memory: State | null = null;
@@ -235,7 +237,7 @@ export async function demoHttp<T>(path: string, init: RequestInit & { json?: unk
   let r: RegExpMatchArray | null;
 
   // Tienda
-  if (method === "GET" && p === "/store") return { settings: data.store } as T;
+  if (method === "GET" && p === "/store") return { settings: { ...data.store, season: s.season ?? data.store.season } } as T;
   if (method === "GET" && p === "/categories") return { items: data.categories.map((c) => ({ ...c, imageUrl: asset(c.imageUrl) })) } as T;
   if (method === "GET" && p === "/products") return listProducts(q) as T;
   if (method === "GET" && (r = m(/^\/products\/([^/]+)$/))) {
@@ -382,8 +384,16 @@ export async function demoHttp<T>(path: string, init: RequestInit & { json?: unk
   // Panel administrativo (solo lectura)
   if (p.startsWith("/admin")) {
     requireAdmin();
-    if (method !== "GET") readOnly();
     const sub = p.slice("/admin".length);
+    // En la demostración, lo único que se puede cambiar es la temporada (se guarda en este navegador).
+    if (method === "PUT" && sub === "/settings/season") {
+      const season = String((body as Json)?.season ?? "");
+      if (!["BASE", "NAVIDAD", "MUERTOS", "AMOR"].includes(season)) throw new ApiError(400, "Temporada no válida.", "VALIDATION");
+      s.season = season;
+      save();
+      return { settings: { ...data.settings, season } } as T;
+    }
+    if (method !== "GET") readOnly();
     const page = (items: Json[]) => ({ items, total: items.length, page: 1, pageSize: items.length || 20, totalPages: 1 });
     const allOrders = s.orders;
     if (sub === "/dashboard") {
@@ -435,7 +445,7 @@ export async function demoHttp<T>(path: string, init: RequestInit & { json?: unk
     }
     if (sub === "/payments") return page([]) as T;
     if (sub === "/coupons") return { items: [] } as T;
-    if (sub === "/settings") return { settings: data.settings } as T;
+    if (sub === "/settings") return { settings: { ...data.settings, season: s.season ?? data.settings.season } } as T;
     if (sub === "/delivery") return data.delivery as T;
     if (sub === "/audit") return { items: [] } as T;
   }

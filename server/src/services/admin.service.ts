@@ -468,6 +468,12 @@ export async function saveSettings(adminId: string, data: z.infer<typeof V.setti
   return s;
 }
 
+export async function setSeason(adminId: string, { season }: z.infer<typeof V.seasonSchema>) {
+  const s = await prisma.storeSettings.upsert({ where: { id: 1 }, update: { season }, create: { id: 1, closedWeekdays: [], season } });
+  await audit({ userId: adminId, action: "settings.season", entity: "StoreSettings", entityId: "1", details: { season } });
+  return s;
+}
+
 export async function listAudit() {
   return prisma.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 100, include: { user: { select: { firstName: true, lastName: true } } } });
 }

@@ -81,6 +81,7 @@ export const updateCoupon = async (req: Request, res: Response) => res.json({ co
 
 // Configuración y entregas
 export const getSettingsAdmin = async (_req: Request, res: Response) => res.json({ settings: await getSettings() });
+export const saveSeason = async (req: Request, res: Response) => res.json({ settings: await admin.setSeason(uid(req), V.seasonSchema.parse(req.body)) });
 export const saveSettings = async (req: Request, res: Response) => res.json({ settings: await admin.saveSettings(uid(req), V.settingsSchema.parse(req.body)) });
 export const listSlots = async (_req: Request, res: Response) =>
   res.json({

@@ -3,6 +3,7 @@ import { Flame, Gift, MessageCircle, ShieldCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ProductGrid } from "../components/ProductCard";
+import { SeasonDecor } from "../components/SeasonDecor";
 import { ContactInfo, DeliveryInfo, FAQ } from "../components/StoreInfo";
 import { ErrorState, ProductImage, Spinner } from "../components/ui";
 import { useCategories, useStore } from "../hooks/useShop";
@@ -75,30 +76,26 @@ export default function Home() {
 
   return (
     <>
-      {/* Portada de temporada */}
-      <section className="rayas relative overflow-hidden">
-        <div className="contenedor grid items-center gap-10 py-12 md:grid-cols-[1.12fr_1fr] md:py-16">
-          <div className="order-2 rounded-[2rem] bg-white/95 p-7 text-center shadow-[var(--shadow-suave)] sm:p-10 md:order-1 md:text-left">
-            {season.category && <p className="sobretitulo mb-3">Temporada de {season.inline}</p>}
-            <h1 className="text-[2.3rem] leading-[1.06] sm:text-[3.1rem]">{season.title}</h1>
-            <p className="mt-4 text-[17px] leading-relaxed text-cafe-500">{season.subtitle}</p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
-              <Link to={season.category ? `/categoria/${season.category}` : "#eventos"} className="btn-primario px-7">{season.cta}</Link>
-              <Link to={season.category ? "#eventos" : "/catalogo"} className="btn-secundario px-7">{season.category ? "Recuerdos para eventos" : "Ver catálogo"}</Link>
+      {/* Portada de temporada: fondo oscuro, vela grande encendida */}
+      <section className="relative isolate overflow-hidden bg-noche text-noche-texto">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_72%_45%,var(--color-noche-2)_0%,transparent_62%)]" aria-hidden="true" />
+        <SeasonDecor key={season.id} id={season.id} />
+        <div className="contenedor grid min-h-[min(86vh,46rem)] items-center gap-6 py-14 md:grid-cols-[1.15fr_1fr] md:py-20">
+          <div className="relative text-center md:text-left">
+            <p className="font-semibold text-brillo">{season.category ? `Colección de ${season.inline}` : "Hechas a mano en la Ciudad de México"}</p>
+            <h1 className="mt-4 text-[2.9rem] leading-[0.98] font-semibold text-noche-texto sm:text-[4.4rem] lg:text-[5.2rem]">{season.title}</h1>
+            <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-noche-texto/80 md:mx-0">{season.subtitle}</p>
+            <div className="mt-9 flex flex-wrap justify-center gap-3 md:justify-start">
+              <Link to={season.category ? `/categoria/${season.category}` : "#eventos"} className="btn bg-brillo px-8 py-3.5 text-[15px] font-bold text-noche hover:brightness-110">{season.cta}</Link>
+              <a href={whatsappLink(store?.whatsapp, waText)} target="_blank" rel="noreferrer noopener" className="btn border border-noche-texto/35 px-7 py-3.5 text-[15px] font-bold text-noche-texto hover:bg-noche-texto/10">
+                <MessageCircle className="size-4" /> Cotizar por WhatsApp
+              </a>
             </div>
           </div>
-          <div className="order-1 flex flex-col items-center md:order-2">
-            <div className="relative w-[min(80vw,26rem)]">
-              <div className="aspect-[1/0.92] rounded-[50%] bg-white p-3" style={{ boxShadow: "0 0 0 6px var(--color-white), 0 0 0 8px var(--color-empolvado), var(--shadow-elevada)" }}>
-                <div className="relative size-full overflow-hidden rounded-[50%] border-[5px] border-dorado bg-rosa-50">
-                  <div className="halo-vela absolute top-[6%] left-1/2 size-[46%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgb(255_210_122/0.55),transparent_68%)]" aria-hidden="true" />
-                  <img src={asset(season.hero)} alt="" className="absolute top-1/2 left-1/2 w-[78%] -translate-x-1/2 -translate-y-[46%] drop-shadow-[0_18px_20px_rgb(0_0_0/0.18)]" />
-                </div>
-              </div>
-            </div>
-            <p className="mt-6 rounded-full bg-white/90 px-5 py-2 text-center font-display text-lg text-cafe-700">
-              «{store?.slogan ?? "Velas artesanales para cada momento"}»
-            </p>
+          <div className="relative order-first flex justify-center md:order-none">
+            <div className="halo-vela absolute top-[2%] left-1/2 aspect-square w-[min(92vw,34rem)] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-brillo)_45%,transparent)_0%,transparent_65%)]" aria-hidden="true" />
+            <img src={asset(season.hero)} alt="" className="vela-flota relative w-[min(78vw,32rem)] drop-shadow-[0_30px_40px_rgb(0_0_0/0.45)]" />
+            <div className="absolute bottom-[4%] left-1/2 h-6 w-[min(55vw,20rem)] -translate-x-1/2 rounded-[50%] bg-black/30 blur-md" aria-hidden="true" />
           </div>
         </div>
       </section>
@@ -132,14 +129,12 @@ export default function Home() {
       {/* Recuerdos para eventos */}
       {eventos.length > 0 && (
         <Section id="eventos" title="Recuerdos para tu evento" intro="Velas personalizadas con nombres, fecha y los colores de tu celebración. Se venden por paquete de 10, 25 o 50 piezas.">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-x-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
             {eventos.map((c, i) => (
-              <Link key={c!.id} to={`/categoria/${c!.slug}`} className="group flex flex-col items-center text-center">
-                <span className={`grid aspect-square w-full max-w-[11rem] place-items-center rounded-full ${PASTEL[i % PASTEL.length]} transition group-hover:shadow-[var(--shadow-suave)]`}>
-                  <ProductImage src={c!.imageUrl} alt="" className="w-[78%] transition duration-500 group-hover:scale-105" />
-                </span>
-                <span className="mt-3 font-display text-[16px] font-semibold text-cafe-900 group-hover:text-rosa-600">{c!.name}</span>
-                <span className="text-sm text-cafe-500">{c!.description}</span>
+              <Link key={c!.id} to={`/categoria/${c!.slug}`} className={`group relative flex aspect-[4/5] flex-col overflow-hidden rounded-[2rem] p-5 ${PASTEL[i % PASTEL.length]} transition hover:shadow-[var(--shadow-elevada)]`}>
+                <ProductImage src={c!.imageUrl} alt="" className="mx-auto w-[86%] flex-1 transition duration-700 group-hover:scale-[1.06]" />
+                <span className="mt-2 font-display text-[1.35rem] leading-tight font-semibold text-cafe-900 sm:text-[1.6rem]">{c!.name}</span>
+                <span className="mt-1 text-sm text-cafe-500">{c!.description}</span>
               </Link>
             ))}
           </div>
@@ -154,10 +149,10 @@ export default function Home() {
             <p className="mt-3 text-[16px] leading-relaxed text-cafe-700">Elige tu vela, agrégala al carrito y paga con tarjeta. Puedes pedir caja de regalo y tarjeta con mensaje.</p>
             <Link to="/catalogo" className="btn-primario mt-6 px-7">Comprar por pieza</Link>
           </div>
-          <div className="rounded-[2rem] bg-celeste p-8 sm:p-10">
-            <h2 className="titulo-dulce">¿Recuerdos para tu evento?</h2>
-            <p className="mt-3 text-[16px] leading-relaxed text-cafe-700">Cuéntanos cuántas piezas, los colores y la fecha. Te mandamos tu cotización y el diseño de la etiqueta por WhatsApp.</p>
-            <a href={whatsappLink(store?.whatsapp, waText)} target="_blank" rel="noreferrer noopener" className="btn-cafe mt-6 px-7">
+          <div className="rounded-[2rem] bg-noche p-8 text-noche-texto sm:p-10">
+            <h2 className="titulo-dulce text-noche-texto">¿Recuerdos para tu evento?</h2>
+            <p className="mt-3 text-[16px] leading-relaxed text-noche-texto/80">Cuéntanos cuántas piezas, los colores y la fecha. Te mandamos tu cotización y el diseño de la etiqueta por WhatsApp.</p>
+            <a href={whatsappLink(store?.whatsapp, waText)} target="_blank" rel="noreferrer noopener" className="btn mt-6 bg-brillo px-7 font-bold text-noche hover:brightness-110">
               <MessageCircle className="size-4" /> Cotizar por WhatsApp
             </a>
           </div>

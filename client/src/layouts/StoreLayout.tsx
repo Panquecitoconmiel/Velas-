@@ -1,11 +1,11 @@
-import { Camera as Instagram, ChevronDown, Globe as Facebook, LayoutDashboard, LogOut, Menu, MessageCircle, Package, Palette, Search, ShoppingBag, User, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import { Camera as Instagram, ChevronDown, Globe as Facebook, LayoutDashboard, LogOut, Menu, MessageCircle, Package, Search, ShoppingBag, User, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { Link, NavLink, Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { useAuth } from "../context/AuthContext";
 import { useCart, useStore } from "../hooks/useShop";
-import { SEASONS, setSeasonPreview, useSeason, type SeasonId } from "../lib/seasons";
+import { useSeason } from "../lib/seasons";
 import { DEMO_MODE } from "../services/api";
 
 /** Menú principal: la colección de la temporada vigente aparece en segundo lugar. */
@@ -296,69 +296,6 @@ function DemoNotice() {
   );
 }
 
-/** Partículas de temporada (nieve, corazones, pétalos de cempasúchil o chispas). Decorativas. */
-const DECOR: Partial<Record<SeasonId, { colors: string[]; shape: "circle" | "heart" | "petal" | "spark"; count: number }>> = {
-  NAVIDAD: { colors: ["#fff7ea", "#ffffff", "#f5e6d1"], shape: "circle", count: 42 },
-  AMOR: { colors: ["#f39aac", "#c21d3c", "#ffc2cd"], shape: "heart", count: 18 },
-  MUERTOS: { colors: ["#f4a742", "#f29e1f", "#c2185b"], shape: "petal", count: 24 },
-  HALLOWEEN: { colors: ["#f08a3c", "#8a6bb0", "#f0b45c"], shape: "spark", count: 22 },
-};
-function SeasonDecor({ id }: { id: SeasonId }) {
-  const cfg = DECOR[id];
-  const items = useMemo(() => {
-    if (!cfg) return [];
-    let seed = 7;
-    const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    return Array.from({ length: cfg.count }, (_, i) => ({
-      left: `${rnd() * 100}%`,
-      size: cfg.shape === "circle" ? 3 + rnd() * 5 : 9 + rnd() * 9,
-      duration: `${9 + rnd() * 12}s`,
-      delay: `${-rnd() * 20}s`,
-      deriva: `${(rnd() - 0.5) * 120}px`,
-      color: cfg.colors[i % cfg.colors.length],
-    }));
-  }, [cfg]);
-  if (!cfg) return null;
-  const shape = (color: string): CSSProperties => {
-    if (cfg.shape === "circle") return { background: color, borderRadius: "50%" };
-    if (cfg.shape === "petal") return { background: color, borderRadius: "70% 0 70% 0" };
-    if (cfg.shape === "heart") return { background: color, clipPath: "path('M5 9 C1 6 0 4 0 2.5 C0 1 1 0 2.5 0 C3.6 0 4.5 0.7 5 1.6 C5.5 0.7 6.4 0 7.5 0 C9 0 10 1 10 2.5 C10 4 9 6 5 9Z')", transform: "scale(1.4)" };
-    return { background: color, clipPath: "polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%)" };
-  };
-  return (
-    <div className="temporada-decor" aria-hidden="true">
-      {items.map((it, i) => (
-        <i key={i} style={{ left: it.left, width: it.size, height: it.size, animationDuration: it.duration, animationDelay: it.delay, ["--deriva" as string]: it.deriva, ...shape(it.color) }} />
-      ))}
-    </div>
-  );
-}
-
-/** Solo en la demostración: permite mostrar al cliente cómo se ve cada temporada. */
-function SeasonPreview({ current }: { current: SeasonId }) {
-  const [open, setOpen] = useState(false);
-  if (!DEMO_MODE) return null;
-  return (
-    <div className="fixed bottom-4 left-4 z-40">
-      {open && (
-        <div role="menu" className="mb-2 w-60 rounded-2xl border border-rosa-100 bg-white p-2 shadow-[var(--shadow-elevada)]">
-          <p className="px-3 pt-1 pb-2 text-xs font-semibold text-cafe-500">Ver el sitio en temporada…</p>
-          {(Object.keys(SEASONS) as SeasonId[]).map((id) => (
-            <button key={id} role="menuitemradio" aria-checked={id === current} onClick={() => { setSeasonPreview(id); setOpen(false); }}
-              className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold ${id === current ? "bg-rosa-100 text-rosa-700" : "text-cafe-700 hover:bg-rosa-50"}`}>
-              {SEASONS[id].name}
-              {id === current && <span aria-hidden="true">●</span>}
-            </button>
-          ))}
-        </div>
-      )}
-      <button onClick={() => setOpen((v) => !v)} aria-expanded={open} className="btn-cafe btn-sm shadow-[var(--shadow-elevada)]">
-        <Palette className="size-4" /> Temporada: {SEASONS[current].name}
-      </button>
-    </div>
-  );
-}
-
 export function StoreLayout() {
   const { pathname } = useLocation();
   const season = useSeason();
@@ -371,8 +308,7 @@ export function StoreLayout() {
   }, [season.id]);
   return (
     <div className="relative flex min-h-dvh flex-col">
-      <SeasonDecor key={season.id} id={season.id} />
-      <SeasonPreview current={season.id} />
+
       <a href="#contenido" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">Saltar al contenido</a>
       <DemoNotice />
       <Header />

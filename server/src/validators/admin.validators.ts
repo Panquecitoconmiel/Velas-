@@ -137,7 +137,6 @@ export const settingsSchema = z
     pricesIncludeTax: z.boolean(),
     taxRatePercent: z.number().min(0).max(100).optional().nullable(),
     cancellationPolicy: optStr(2000),
-    season: z.enum(["AUTO", "BASE", "NAVIDAD", "AMOR", "MUERTOS", "HALLOWEEN"]).optional(),
   })
   .strict()
   .refine((s) => !s.deliveryEnabled || s.deliveryFeeCents != null, {
@@ -170,3 +169,6 @@ export const listQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });
+
+/** Temporada visual del sitio: la decide la administradora. */
+export const seasonSchema = z.object({ season: z.enum(["BASE", "NAVIDAD", "MUERTOS", "AMOR"]) }).strict();

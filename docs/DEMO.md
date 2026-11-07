@@ -7,7 +7,7 @@ Versión de la tienda de velas de Mafer para **mostrar el diseño a clientes**. 
 - Recorrer portada, catálogo, filtros, búsqueda y detalle de productos.
 - Personalizar recuerdos para eventos (paquete, listón, etiqueta) y ver el precio calculado.
 - Cotizar o pedir por WhatsApp desde el producto o el carrito.
-- Ver el sitio en cada temporada con el botón «Temporada» (abajo a la izquierda).
+- Cambiar la temporada del sitio desde el panel (Configuración › Temporada del sitio); el cambio se guarda solo en ese navegador.
 - Agregar al carrito, crear una cuenta de prueba y completar el checkout. Se crea un **pedido de prueba**; no se cobra nada.
 - Ver «Mi cuenta»: pedidos, direcciones y favoritos.
 - Entrar al **panel administrativo** en modo solo lectura con:

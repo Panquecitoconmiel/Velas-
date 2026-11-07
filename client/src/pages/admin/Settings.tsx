@@ -6,7 +6,7 @@ import { useToast } from "../../context/ToastContext";
 import { errorMessage } from "../../hooks/useShop";
 import { PageHeader, Table } from "../../layouts/AdminLayout";
 import { longDate, parseMoney } from "../../lib/format";
-import { resolveSeason, SEASON_OPTIONS, SEASONS } from "../../lib/seasons";
+import { resolveSeason, SEASON_IDS, SEASONS, type SeasonId } from "../../lib/seasons";
 import { adminApi, ApiError } from "../../services/api";
 
 interface Settings {
@@ -29,14 +29,24 @@ export default function AdminSettings() {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   useEffect(() => { if (data) { setS(data); setFee(pesos(data.deliveryFeeCents)); setFreeMin(pesos(data.freeDeliveryMinCents)); } }, [data]);
 
+  const season = useMutation({
+    mutationFn: (id: SeasonId) => adminApi.send("PUT", "/settings/season", { season: id }),
+    onSuccess: (_r, id) => {
+      qc.invalidateQueries({ queryKey: ["admin", "settings"] });
+      qc.invalidateQueries({ queryKey: ["store"] });
+      setS((cur) => (cur ? { ...cur, season: id } : cur));
+      notify(`Temporada cambiada a ${SEASONS[id].name}.`);
+    },
+    onError: (e) => notify(errorMessage(e), "error"),
+  });
   const save = useMutation({
     mutationFn: () => {
       // Solo se envían los campos editables (el servidor rechaza campos internos como id o updatedAt).
       const { storeName, slogan, contactEmail, contactPhone, whatsapp, instagramUrl, facebookUrl, pickupAddress, businessHours,
-        pickupEnabled, deliveryEnabled, deliveryCoverage, minLeadHours, maxAdvanceDays, closedWeekdays, pricesIncludeTax, cancellationPolicy, season } = s!;
+        pickupEnabled, deliveryEnabled, deliveryCoverage, minLeadHours, maxAdvanceDays, closedWeekdays, pricesIncludeTax, cancellationPolicy } = s!;
       return adminApi.send("PUT", "/settings", {
         storeName, slogan, contactEmail, contactPhone, whatsapp, instagramUrl, facebookUrl, pickupAddress, businessHours,
-        pickupEnabled, deliveryEnabled, deliveryCoverage, minLeadHours, maxAdvanceDays, closedWeekdays, pricesIncludeTax, cancellationPolicy, season,
+        pickupEnabled, deliveryEnabled, deliveryCoverage, minLeadHours, maxAdvanceDays, closedWeekdays, pricesIncludeTax, cancellationPolicy,
         deliveryFeeCents: fee ? parseMoney(fee) : null,
         freeDeliveryMinCents: freeMin ? parseMoney(freeMin) : null,
         taxRatePercent: s!.taxRatePercent ? Number(s!.taxRatePercent) : null,
@@ -75,19 +85,30 @@ export default function AdminSettings() {
       <PageHeader title="Configuración" subtitle="Estos datos se muestran en la tienda. Lo que dejes vacío no se publica." />
       <form onSubmit={(e: FormEvent) => { e.preventDefault(); save.mutate(); }} className="grid gap-6 xl:grid-cols-2">
         <section className="tarjeta space-y-4 p-5 xl:col-span-2">
-          <h2 className="text-lg">Temporada del sitio</h2>
-          <p className="text-sm text-cafe-500">Cambia los colores, la portada y la colección destacada de la tienda.</p>
-          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Temporada del sitio">
-            {SEASON_OPTIONS.map((o) => (
-              <button key={o.value} type="button" role="radio" aria-checked={s.season === o.value} aria-pressed={s.season === o.value} className="chip" onClick={() => setS({ ...s, season: o.value })}>
-                {o.label}
-              </button>
-            ))}
+          <div>
+            <h2 className="text-lg">Temporada del sitio</h2>
+            <p className="text-sm text-cafe-500">Cambia los colores, la portada y la colección destacada de la tienda. Se aplica en cuanto la eliges.</p>
           </div>
-          <p className="ayuda">
-            En automático: Halloween del 1 al 27 de octubre, Día de muertos del 28 de octubre al 2 de noviembre, Navidad del 15 de noviembre al 6 de enero
-            y Amor y amistad del 1 al 14 de febrero. El resto del año se usa la paleta nude. Hoy se mostraría: <strong>{SEASONS[resolveSeason(s.season)].name}</strong>.
-          </p>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4" role="radiogroup" aria-label="Temporada del sitio">
+            {SEASON_IDS.map((id) => {
+              const t = SEASONS[id];
+              const active = resolveSeason(s.season) === id;
+              return (
+                <button key={id} type="button" role="radio" aria-checked={active} disabled={season.isPending}
+                  onClick={() => !active && season.mutate(id)}
+                  className={`rounded-2xl border-2 p-3 text-left transition ${active ? "border-rosa-600 bg-rosa-50" : "border-crema-300 hover:border-empolvado"}`}>
+                  <span className="flex h-10 overflow-hidden rounded-xl">
+                    {t.swatches.map((c) => <span key={c} className="flex-1" style={{ background: c }} />)}
+                  </span>
+                  <span className="mt-2.5 flex items-center justify-between font-semibold text-cafe-900">
+                    {t.name}
+                    {active && <span className="rounded-full bg-rosa-600 px-2 py-0.5 text-xs text-white">Activa</span>}
+                  </span>
+                  <span className="text-xs text-cafe-500">{id === "BASE" ? "Para todo el año" : `Colección de ${t.inline}`}</span>
+                </button>
+              );
+            })}
+          </div>
         </section>
 
         <section className="tarjeta space-y-4 p-5">
